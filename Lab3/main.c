@@ -3,6 +3,7 @@
 // Define Pin Mapping of 7-segment Display
 // Segments are connected to P1.0 - P1.7
 
+
 void displaynumber (volatile int number){
     P1DIR |= BIT1; //Set P1.1 as output
 
@@ -98,7 +99,7 @@ void displaynumber (volatile int number){
 }
 
 
-void adc(unsigned int* last){
+void adc(){
     //Set pin to Analog input
     P1SEL |= BIT0;
     volatile unsigned int ADC_value;
@@ -117,57 +118,53 @@ void adc(unsigned int* last){
     // integer called ADC_value
     ADC_value = ADC10MEM;
 
-
-
-
-   if(ADC_value <= 64 && ((*last+10) < ADC_value))
+   if(ADC_value <= 64)
       displaynumber(0);
 
-   else if(ADC_value <= 128 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 128)
       displaynumber(1);
 
-   else if(ADC_value <= 192 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 192)
       displaynumber(2);
 
-   else if(ADC_value <= 256 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 256)
       displaynumber(3);
 
-   else if(ADC_value <= 320 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 320)
       displaynumber(4);
 
-   else if(ADC_value <= 384 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 384)
       displaynumber(5);
 
-   else if(ADC_value <= 448 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 448)
       displaynumber(6);
 
-   else if(ADC_value <= 575 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 575)
       displaynumber(7);
 
-   else if(ADC_value <= 639 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 639)
       displaynumber(8);
 
-   else if(ADC_value <= 703 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 703)
       displaynumber(9);
 
-   else if(ADC_value <= 767 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 767)
       displaynumber(10);
 
-   else if(ADC_value <= 831 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 831)
       displaynumber(11);
 
-   else if(ADC_value <= 895 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 895)
       displaynumber(12);
 
-   else if(ADC_value <= 959 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 959)
       displaynumber(13);
 
-   else if(ADC_value <= 1023 && ((*last+10) < ADC_value))
+   else if(ADC_value <= 1023)
       displaynumber(14);
 
-   else{
-      displaynumber(15);}
-       *last = ADC_value;
+   else
+      displaynumber(15);
 
 }
 
@@ -178,14 +175,13 @@ void main(void) {
     P2SEL &= ~(BIT6);              // Set P2.6 & P2.7 as GPIO (Default is XIN/XOUT)
     P2SEL &= ~(BIT7);
 
+    //int number = 0;
     // Initialize 7-segment pins as Output
     P2DIR |= 0xFF;
     P1DIR |= BIT1; //Set P1.1 as output
-    unsigned int* holder=0;//pass by ref value
-
 
     while(1){
-    adc(holder);
-        }
+    adc();
+    }
 
     }
