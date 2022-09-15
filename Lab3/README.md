@@ -7,3 +7,5 @@ Using Pin 1.3 to drive the segment B.
 Due to ADC needing Pin 1 as input and the 7 segment needing Pin 1 as output.
 ### Work Around
 To declare Pin 1 as input in ADC function and then redeclare pin 1 as output in display function.
+## Issue 3
+Seven Segment Display is flickering due to no guard band, fix for this is TBD. Attempting to implement save and hold.
